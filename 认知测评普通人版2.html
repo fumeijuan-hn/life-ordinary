@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命态度与意义探索</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+            font-size: 1.3rem;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .intro {
+            border-left: 5px solid #3498db;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #e9ecef;
+        }
+        
+        .option:hover {
+            background-color: #f1f3f5;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #3498db;
+        }
+        
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .overall-assessment {
+            border-left: 5px solid #3498db;
+        }
+        
+        .dimension {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .dimension:nth-child(2) {
+            border-left-color: #e67e22;
+        }
+        
+        .dimension:nth-child(3) {
+            border-left-color: #f1c40f;
+        }
+        
+        .dimension:nth-child(4) {
+            border-left-color: #2ecc71;
+        }
+        
+        .dimension:nth-child(5) {
+            border-left-color: #9b59b6;
+        }
+        
+        .dimension-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dimension-score {
+            font-weight: bold;
+            color: #3498db;
+            background: #e3f2fd;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .dimension-description {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .dimension-analysis {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.5;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .guidance {
+            border-left: 5px solid #2ecc71;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #7f8c8d;
+            margin: 15px 0;
+            padding-left: 15px;
+            border-left: 3px solid #bdc3c7;
+        }
+        
+        .author {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn-center {
+            text-align: center;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .result-container {
+            display: none;
+        }
+        
+        .footer-note {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-radius: 8px;
+            border-left: 5px solid #ffc107;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .option {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>生命态度与意义探索</h1>
+            <p>一场关于生命、爱与存在的深度对话</p>
+        </header>
+        
+        <div id="intro-section" class="section intro">
+            <p>亲爱的朋友，欢迎参加这场关于生命意义的探索之旅。这不是一个冰冷的测试，而是一次与内心深处的对话。</p>
+            <p>在接下来的旅程中，我们将一起探讨：</p>
+            <ul>
+                <li><strong>生命的意义感</strong> - 你在生活中找到的温暖与方向</li>
+                <li><strong>对永恒的渴望</strong> - 你希望如何被世界记住</li>
+                <li><strong>面对失去的勇气</strong> - 你在伤痛中学会的智慧</li>
+                <li><strong>活在当下的艺术</strong> - 你如何珍惜每个瞬间</li>
+                <li><strong>内心的平静</strong> - 你与生命无常的相处之道</li>
+            </ul>
+            <p>请放松心情，像和老朋友聊天一样回答这些问题。你的每个回答都是独特而珍贵的。</p>
+            
+            <div class="btn-center">
+                <button id="start-btn" class="btn">开始探索之旅</button>
+            </div>
+        </div>
+        
+        <div id="question-container" class="question-container">
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+            
+            <div id="question"></div>
+            
+            <div class="navigation">
+                <button id="prev-btn" class="btn" style="background: #6c757d;">上一题</button>
+                <button id="next-btn" class="btn">下一题</button>
+                <button id="submit-btn" class="btn" style="background: #28a745; display: none;">完成探索</button>
+            </div>
+        </div>
+        
+        <div id="result-container" class="result-container">
+            <div class="section overall-assessment">
+                <h2>你的生命画像</h2>
+                <div id="overall-text">
+                    <!-- 总体评估内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>深度解读</h2>
+                <div id="dimension-results">
+                    <!-- 各维度分析内容将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="section guidance">
+                <h2>成长建议</h2>
+                <div id="guidance-text">
+                    <!-- 建议内容将通过JavaScript动态生成 -->
+                </div>
+                
+                <div class="btn-center">
+                    <button id="restart-btn" class="btn">重新探索</button>
+                    <button id="print-btn" class="btn" style="background: #9b59b6; margin-left: 10px;">保存结果</button>
+                </div>
+            </div>
+            
+            <div class="footer-note">
+                <p><strong>温馨提示：</strong>这份探索报告是你内心世界的一面镜子，帮助你更了解自己。如果你在探索过程中感到任何不适，请记得向信任的朋友或专业人士倾诉。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 更新测试题目 - 更生活化、生动形象的版本
+        const questions = [
+            // 第一部分：死亡焦虑与恐惧（生活化版本）
+            { id: 1, text: "深夜独处时，'如果有一天我不在了，这个世界会怎样？'这样的念头会让我心头一紧", dimension: "deathAnxiety" },
+            { id: 2, text: "想到生命像花儿一样会凋零，身体最终回归大地，这种自然规律让我感到不安", dimension: "deathAnxiety" },
+            { id: 3, text: "'所有的故事都有结局'——想到生命终将落幕，我会感到一丝恐惧", dimension: "deathAnxiety" },
+            { id: 4, text: "看到新闻中他人的不幸，我会不自觉地想：'如果那是我呢？'然后感到一阵心慌", dimension: "deathAnxiety" },
+            { id: 5, text: "生命结束后会去哪里？这种未知让我感到迷茫和些许害怕", dimension: "deathAnxiety" },
+            { id: 6, text: "想到生命可能以痛苦的方式结束，我会感到担忧", dimension: "deathAnxiety" },
+            { id: 7, text: "'被遗忘比死亡更可怕'——想到终将被世界遗忘，我会感到失落", dimension: "deathAnxiety" },
+            { id: 8, text: "相比身边的朋友，我感觉自己对生命有限的担忧更强烈", dimension: "deathAnxiety" },
+            { id: 9, text: "'生命倒计时'的念头有时会突然闯入脑海，打断我正在做的事情", dimension: "deathAnxiety" },
+            { id: 10, text: "我觉得，对生命有限的恐惧是每个人心底最真实的情感之一", dimension: "deathAnxiety" },
+            
+            // 第二部分：象征性永生与文化世界观防御（生活化版本）
+            { id: 11, text: "我希望通过自己的作品、事业或善行，让世界因我而变得更美好一些", dimension: "symbolicImmortality" },
+            { id: 12, text: "看着孩子成长，我觉得自己的生命在他们身上得到了延续", dimension: "symbolicImmortality" },
+            { id: 13, text: "作为中华民族的一员，悠久的文明历史让我感到自己是伟大传承的一部分", dimension: "symbolicImmortality" },
+            { id: 14, text: "我相信，生命结束后，爱和精神的能量会以某种形式继续存在", dimension: "symbolicImmortality" },
+            { id: 15, text: "我希望在亲友的记忆中，我是一个温暖、有价值的人", dimension: "symbolicImmortality" },
+            { id: 16, text: "当意识到生命有限时，我更珍惜与志同道合的朋友相聚的时光", dimension: "symbolicImmortality" },
+            { id: 17, text: "我觉得信仰能给人面对生命无常的勇气和安慰", dimension: "symbolicImmortality" },
+            { id: 18, text: "创作让我感到自己在创造某种永恒的东西，哪怕只是一首小诗、一幅画", dimension: "symbolicImmortality" },
+            { id: 19, text: "与价值观完全不同的人相处时，我会感到不适和疏离", dimension: "symbolicImmortality" },
+            { id: 20, text: "为社会做贡献让我感到自己的生命有了超越个人的意义", dimension: "symbolicImmortality" },
+            
+            // 第三部分：生命意义感与真实生活（生活化版本）
+            { id: 21, text: "正因为生命有限，我更懂得珍惜每个日出日落、每次与亲友相聚", dimension: "meaningOfLife" },
+            { id: 22, text: "我清楚地知道自己为什么而活，生命对我而言有明确的方向", dimension: "meaningOfLife" },
+            { id: 23, text: "即使在人生低谷，我也能从中找到成长的意义和收获", dimension: "meaningOfLife" },
+            { id: 24, text: "我觉得生命的价值不在于活了多久，而在于活得有多深刻、多真实", dimension: "meaningOfLife" },
+            { id: 25, text: "我能够按照自己的心意选择人生道路，活出真实的自己", dimension: "meaningOfLife" },
+            { id: 26, text: "与家人朋友的深厚情感，是我生命中最珍贵的财富", dimension: "meaningOfLife" },
+            { id: 27, text: "完成一个有意义的目标时，那种成就感让我觉得活着真好", dimension: "meaningOfLife" },
+            { id: 28, text: "我相信苦难是生命的必修课，每个挫折都藏着礼物的种子", dimension: "meaningOfLife" },
+            { id: 29, text: "我常常能沉浸在当下的美好中，忘记时间的流逝", dimension: "meaningOfLife" },
+            { id: 30, text: "回首过往，我可以坦然地说：'我活出了自己想要的人生'", dimension: "meaningOfLife" },
+            
+            // 第四部分：死亡接纳与整合（生活化版本）
+            { id: 31, text: "我认为死亡就像四季轮回，是生命自然循环的一部分", dimension: "deathAcceptance" },
+            { id: 32, text: "我可以很自然地与亲友谈论生命、死亡这些深刻的话题", dimension: "deathAcceptance" },
+            { id: 33, text: "如果生命即将走到尽头，我希望清楚地了解真实情况", dimension: "deathAcceptance" },
+            { id: 34, text: "我接受'人终有一死'的事实，不与自然规律抗争", dimension: "deathAcceptance" },
+            { id: 35, text: "我觉得提前规划身后事，是对自己和家人的一种负责任", dimension: "deathAcceptance" },
+            { id: 36, text: "谈论生死话题时，我不会感到压抑，反而觉得是种解脱", dimension: "deathAcceptance" },
+            { id: 37, text: "我向往平静、有尊严地走完人生最后一程", dimension: "deathAcceptance" },
+            { id: 38, text: "意识到生命有限，反而让我更懂得欣赏眼前的美好", dimension: "deathAcceptance" },
+            { id: 39, text: "我已经与至亲好友分享过自己对生命终点的想法和愿望", dimension: "deathAcceptance" },
+            { id: 40, text: "总的来说，我对生命自然终结的态度是平和多于恐惧", dimension: "deathAcceptance" },
+            
+            // 第五部分：悲伤、丧失与应对方式（生活化版本）
+            { id: 41, text: "面对亲人离世，我的第一反应常常是：'这不可能！'", dimension: "griefCoping" },
+            { id: 42, text: "经历失去时，我有时会感到愤怒：'为什么偏偏是我爱的人？'", dimension: "griefCoping" },
+            { id: 43, text: "我曾幻想：'如果能换回逝去的亲人，我愿意付出任何代价'", dimension: "griefCoping" },
+            { id: 44, text: "失去至亲后，我经历过很长一段时间的心如刀割", dimension: "griefCoping" },
+            { id: 45, text: "最终，我学会了带着对逝者的爱，继续好好生活", dimension: "griefCoping" },
+            { id: 46, text: "我相信悲伤是需要经历的过程，不能简单地'跳过'或'忘记'", dimension: "griefCoping" },
+            { id: 47, text: "与朋友回忆逝去的亲人、翻看老照片，能给我温暖的慰藉", dimension: "griefCoping" },
+            { id: 48, text: "我找到了特别的方式纪念逝者，比如在他们生日时做些有意义的事", dimension: "griefCoping" },
+            { id: 49, text: "我相信伤痛会改变一个人，但也能让我们更懂得生命的珍贵", dimension: "griefCoping" },
+            { id: 50, text: "即使岁月流逝，对逝者的爱和记忆依然在我心中闪闪发光", dimension: "griefCoping" }
+        ];
+
+        // 维度信息（保持原心理学原理，但用更温暖的语言描述）
+        const dimensions = {
+            deathAnxiety: {
+                name: "生命有限性的感受",
+                description: "探索你对生命自然规律的感受和态度"
+            },
+            symbolicImmortality: {
+                name: "对永恒的渴望",
+                description: "了解你如何通过爱、创造和传承来延续生命的意义"
+            },
+            meaningOfLife: {
+                name: "生命的意义感",
+                description: "发现你在日常生活中找到的温暖、方向和价值"
+            },
+            deathAcceptance: {
+                name: "与生命和解",
+                description: "了解你与生命自然规律的相处之道"
+            },
+            griefCoping: {
+                name: "面对失去的智慧",
+                description: "探索你在伤痛中学会的生命功课"
+            }
+        };
+
+        // 智能评估分析器
+        const intelligentAnalyzer = {
+            // 分析用户的回答模式
+            analyzeResponsePatterns(userAnswers) {
+                const patterns = {
+                    extremeResponses: 0, // 极端回答（1或5）
+                    neutralResponses: 0, // 中立回答（3）
+                    consistency: 0, // 回答一致性
+                    avoidanceTendency: 0 // 回避倾向
+                };
+                
+                // 分析回答模式
+                userAnswers.forEach((answer, index) => {
+                    if (answer === 1 || answer === 5) patterns.extremeResponses++;
+                    if (answer === 3) patterns.neutralResponses++;
+                    
+                    // 检查回避倾向（对直接涉及死亡的问题选择中立或不同意）
+                    if ([1,2,3,4,5,6,7,8,9,31,32,33,34,35,36,37,38,39,40].includes(index+1) && answer <= 3) {
+                        patterns.avoidanceTendency++;
+                    }
+                });
+                
+                return patterns;
+            },
+            
+            // 识别关键问题回答
+            identifyKeyResponses(userAnswers) {
+                const keyResponses = {
+                    existentialAnxiety: userAnswers[0] + userAnswers[2] + userAnswers[4], // 存在性焦虑
+                    legacyConcern: userAnswers[6] + userAnswers[14] + userAnswers[19], // 遗产关注
+                    meaningFinding: userAnswers[21] + userAnswers[22] + userAnswers[29], // 意义寻找
+                    acceptanceLevel: userAnswers[31] + userAnswers[34] + userAnswers[40] // 接纳水平
+                };
+                return keyResponses;
+            },
+            
+            // 生成个性化总体评估
+            generatePersonalizedAssessment(scores, userAnswers, patterns, keyResponses) {
+                let assessment = "";
+                
+                // 分析用户的核心心理特征
+                const highAnxiety = scores.deathAnxiety >= 36;
+                const highMeaning = scores.meaningOfLife >= 36;
+                const highAcceptance = scores.deathAcceptance >= 36;
+                const highSymbolic = scores.symbolicImmortality >= 36;
+                const highAvoidance = patterns.avoidanceTendency >= 15;
+                const highExtreme = patterns.extremeResponses >= 20;
+                
+                // 根据组合特征生成深度评估
+                if (highAnxiety && highMeaning && !highAcceptance) {
+                    assessment = `亲爱的探索者，你的内心世界展现出一幅动人的画面：你对生命怀有深沉的爱与珍视，这份爱让你积极投入每个当下，但也让你对生命的有限性格外敏感。就像精心照料一座美丽花园的园丁，正因为你如此深爱着园中的每一朵花，才会对秋冬的来临感到不安。你在用热烈的生活来回应内心的叩问，这种生命的张力既是你痛苦的来源，也是你成长的动力。或许，真正的智慧不在于消除这份不安，而在于学会与它温柔共处。`;
+                }
+                else if (highAcceptance && highMeaning && !highAnxiety) {
+                    assessment = `你展现了一种难得的生活智慧——既深深热爱生命，又能平静接纳它的自然规律。你像是经历过风雨的老水手，既享受航行的激情，也懂得大海的脾性。这种态度让你能够在生命的浪潮中保持内心的锚点，既不逃避现实的有限，也不错过当下的无限。你似乎已经领悟到，生命的珍贵恰恰在于它的短暂，正如樱花的美丽在于它的转瞬即逝。这份通透让你活得既真实又从容。`;
+                }
+                else if (highAnxiety && highAvoidance && !highMeaning) {
+                    assessment = `你的探索之旅揭示了一个温柔的矛盾：你对生命有着本能的珍爱，这让你对它的有限性感到不安，但这份不安又让你不敢深入触碰相关的话题。就像孩子既想触摸美丽的蝴蝶，又怕惊扰它的翅膀。这种心情完全可以理解——我们害怕面对的，往往是我们最在意的。或许，你可以试着像对待一位老朋友一样，温柔地邀请这份恐惧坐下来喝杯茶，听听它想告诉你什么。`;
+                }
+                else if (highSymbolic && highExtreme && highAnxiety) {
+                    assessment = `你内心有着强烈的创作和传承的渴望，希望通过自己的存在让世界变得更美好。这份热情令人感动，它像一团永不熄灭的火焰，推动着你不断前行。但有时候，这团火也会灼伤自己——当我们太在意'留下什么'时，可能会错过'体验什么'。就像急着拍照记录美景的旅行者，反而错过了身临其境的感动。平衡'创造永恒'与'活在当下'，可能是你接下来要修习的人生功课。`;
+                }
+                else {
+                    assessment = `你的生命态度呈现出真实而平衡的面貌。你不是那种对生死话题漠不关心的人，但也不会被它们完全困扰；你在寻找意义，同时也保持着对现实的清醒。这种状态就像走在一条山间小路上——既会驻足欣赏路边的野花，也会留意脚下的石块。你在恐惧与接纳、迷茫与清晰之间寻找着自己的节奏，这种探索本身，就是生命最动人的旋律。每一个认真思考过生命的人，都曾走过你正在走的这条路。`;
+                }
+                
+                // 添加基于具体回答的个性化洞察
+                if (keyResponses.existentialAnxiety >= 12) {
+                    assessment += " 特别值得一提的是，你对生命本质的深度思考显示你具有哲学家的气质，这种特质虽然偶尔会让你感到'众人皆醉我独醒'的孤独，但也是你独特智慧的源泉。";
+                }
+                
+                if (keyResponses.legacyConcern >= 12) {
+                    assessment += " 你对'如何被记住'的关注，反映出你希望自己的生命像投入湖面的石子，能激起美丽的涟漪。这份渴望本身，就是对抗生命有限性最诗意的回答。";
+                }
+                
+                return assessment;
+            }
+        };
+
+        // 智能建议生成器
+        const intelligentGuidance = {
+            // 生成个性化建议
+            generatePersonalizedSuggestions(scores, userAnswers, patterns) {
+                let suggestions = [];
+                
+                const highAnxiety = scores.deathAnxiety >= 36;
+                const lowMeaning = scores.meaningOfLife <= 25;
+                const lowAcceptance = scores.deathAcceptance <= 25;
+                const highAvoidance = patterns.avoidanceTendency >= 15;
+                
+                // 基础建议
+                suggestions.push("基于你的探索结果，这里有一些温暖的建议：");
+                
+                // 针对高死亡焦虑的建议
+                if (highAnxiety) {
+                    suggestions.push("你对生命有限性的敏感，其实是一份珍贵的礼物——它让你比许多人更懂得珍惜。当下次焦虑来访时，试着对它说：'谢谢你的提醒，让我更懂得活在当下。'然后把注意力转向眼前具体的美好：一杯热茶的香气，窗外鸟儿的鸣叫，或者呼吸时空气在身体里的流动。");
+                    
+                    if (highAvoidance) {
+                        suggestions.push("你似乎习惯与生命话题保持安全距离。不妨从温柔的方式开始：读一首关于生命的诗歌，看一部探讨存在的电影，或者在春日里观察一朵花从盛开到凋零的全过程。生命的教育往往在最细微处发生。");
+                    }
+                }
+                
+                // 针对低生命意义感的建议
+                if (lowMeaning) {
+                    suggestions.push("意义感就像花园里的种子，需要耐心培育。试着每天记录三件让你心头一暖的小事：可能是陌生人的微笑，完成的小任务，或者突然领悟的道理。意义往往藏在最平凡的日常里，等待被发现的眼睛。");
+                }
+                
+                // 针对低死亡接纳的建议
+                if (lowAcceptance) {
+                    suggestions.push("接纳生命的自然规律，就像学会与季节相处。试着在秋天欣赏落叶的美，在冬天感受寂静的力量。生命的每个阶段都有其独特的价值，结束也是完整生命的一部分。");
+                }
+                
+                // 针对具体回答模式的建议
+                if (patterns.extremeResponses >= 20) {
+                    suggestions.push("你的回答中黑白分明的倾向，反映出你追求纯粹的个性。生命就像一幅水墨画，最美的往往是那些灰色的过渡地带。试着在思考时允许更多'既...又...'的存在：生命既有限又无限，既脆弱又坚韧。");
+                }
+                
+                // 积极心理学建议
+                suggestions.push("无论探索结果如何，请记住：对生命的思考本身就是一种深刻的活着。你愿意花时间进行这场内心对话，这份勇气和真诚已经让你的生命更加丰盛。");
+                
+                // 具体行动建议
+                suggestions.push("考虑开始写'感恩日记'，每天记录生命中的小确幸；尝试一些能发挥你独特天赋的创造性活动；找个安静的午后，与挚友开展一场关于生命、爱与存在的深度对话。");
+                
+                return suggestions;
+            }
+        };
+
+        // 评估结果数据库（用更温暖的语言重写）
+        const resultDatabase = {
+            // 死亡焦虑与恐惧维度结果
+            deathAnxiety: {
+                low: {
+                    range: [10, 25],
+                    title: "平和从容",
+                    analysis: "你对生命有限性保持着难得的平静，像一位懂得欣赏四季变化的智者。这种态度让你能够专注于当下的美好，不被未来的不确定性所困扰。适度的生命意识其实是健康的，它提醒我们珍惜每个如珍珠般珍贵的当下。"
+                },
+                medium: {
+                    range: [26, 35],
+                    title: "敏感觉察",
+                    analysis: "你对生命的有限性有着清醒的觉察，但这种觉察并未影响你享受生活。你像一位细心的园丁，既欣赏花朵的美丽，也了解它们终将凋零的自然规律。这种平衡的态度让你既能深刻体会生命，又能踏实活在当下。"
+                },
+                high: {
+                    range: [36, 50],
+                    title: "深度思考者",
+                    analysis: "你对生命本质的思考相当深入，这份敏感既是你痛苦的来源，也是你智慧的基石。就像夜空中最亮的星星，你的光芒来自于对黑暗的深刻认知。重要的是学会将这份思考转化为生活的艺术，让哲学照亮日常。"
+                }
+            },
+            
+            // 象征性永生与文化世界观防御维度结果
+            symbolicImmortality: {
+                low: {
+                    range: [10, 25],
+                    title: "活在当下",
+                    analysis: "你更注重此时此刻的真实体验，而非遥远的身后之名。这种态度让你能够像孩子一样纯粹地享受生活，不为外在评价所困。你懂得，真正的永恒不在未来，而在每个充分活过的当下。"
+                },
+                medium: {
+                    range: [26, 35],
+                    title: "平衡传承",
+                    analysis: "你在个人体验与生命传承之间找到了美好的平衡。既珍惜当下的每一刻，也希望通过自己的存在让世界更美好。这种态度让你既能深深扎根于现实，又能望向更远的远方。"
+                },
+                high: {
+                    range: [36, 50],
+                    title: "永恒追寻者",
+                    analysis: "你内心有着强烈的创造和传承渴望，希望通过自己的生命留下美丽的印记。这份热情像永不熄灭的火焰，既照亮前路，也温暖他人。关键在于找到创造与体验的平衡，让追求成为享受而非负担。"
+                }
+            },
+            
+            // 生命意义感与真实生活维度结果
+            meaningOfLife: {
+                low: {
+                    range: [10, 25],
+                    title: "探索中的旅人",
+                    analysis: "你正在寻找属于自己的生命答案，这份探索本身就是最珍贵的旅程。意义感就像山间的清泉，需要耐心寻找，但一旦找到，就能滋润整个生命。相信你会在行走中遇见属于自己的星光。"
+                },
+                medium: {
+                    range: [26, 35],
+                    title: "渐入佳境",
+                    analysis: "你已经开始在生命中尝到意义的甘露，虽然还不够稳定，但已经走在正确的道路上。意义感往往不是一蹴而就的顿悟，而是在日常点滴中慢慢累积的智慧。"
+                },
+                high: {
+                    range: [36, 50],
+                    title: "意义发现者",
+                    analysis: "你已经在生活中找到了深刻的意义感和方向感。这种内在的指南针让你能够在生命的海洋中稳健航行，既享受旅程的惊喜，也保持内心的坚定。你懂得，生命的意义不在于逃避风暴，而在于学会在风雨中舞蹈。"
+                }
+            },
+            
+            // 死亡接纳与整合维度结果
+            deathAcceptance: {
+                low: {
+                    range: [10, 25],
+                    title: "谨慎面对",
+                    analysis: "你对生命自然规律保持着谨慎的距离，这种保护机制完全可以理解。完全的接纳是一个渐进的过程，就像学会与影子共舞，需要时间和勇气。每一个小步的前行都值得肯定。"
+                },
+                medium: {
+                    range: [26, 35],
+                    title: "理性接纳",
+                    analysis: "你已经在理性层面理解了生命的自然规律，但在情感层面仍有未解的困惑。这种矛盾是成长的真实写照，就像春天里既期待花开又舍不得融雪的心情。"
+                },
+                high: {
+                    range: [36, 50],
+                    title: "智慧和解",
+                    analysis: "你展现出与生命自然规律和解的智慧，这种态度让你能够既深刻又轻松地活着。你懂得，正是生命的有限性赋予了每个选择以重量，每个瞬间以光彩。这种认识是生命给你的最美礼物。"
+                }
+            },
+            
+            // 悲伤、丧失与应对方式维度结果
+            griefCoping: {
+                low: {
+                    range: [10, 25],
+                    title: "保护中的心灵",
+                    analysis: "你可能还没有经历过深刻的失去，或者选择与悲伤保持安全距离。悲伤作为一种深刻的情感体验，有其独特的价值和智慧，当时机成熟时，它会自然来访。"
+                },
+                medium: {
+                    range: [26, 35],
+                    title: "健康的疗愈",
+                    analysis: "你对悲伤有着健康的理解和处理方式，能够在伤痛中保持内在的稳定。这种能力让你既能够充分体验情感，又不会迷失其中，是情感成熟的美丽标志。"
+                },
+                high: {
+                    range: [36, 50],
+                    title: "深度体验者",
+                    analysis: "你经历过深刻的失去，并从中发展出了应对悲伤的智慧。这种深度体验让你对生命有了更透彻的理解——真正的坚强不是不流泪，而是流泪后依然能够微笑。"
+                }
+            }
+        };
+
+        // 用户答案存储
+        let userAnswers = new Array(questions.length).fill(null);
+        let currentQuestionIndex = 0;
+        let isAutoAdvancing = false;
+
+        // DOM元素
+        const introSection = document.getElementById('intro-section');
+        const startBtn = document.getElementById('start-btn');
+        const questionContainer = document.getElementById('question-container');
+        const resultContainer = document.getElementById('result-container');
+        const questionElement = document.getElementById('question');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressBar = document.getElementById('progress');
+        const overallTextElement = document.getElementById('overall-text');
+        const dimensionResultsElement = document.getElementById('dimension-results');
+        const guidanceTextElement = document.getElementById('guidance-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const printBtn = document.getElementById('print-btn');
+
+        // 开始测试
+        startBtn.addEventListener('click', function() {
+            introSection.style.display = 'none';
+            questionContainer.style.display = 'block';
+            showQuestion(currentQuestionIndex);
+        });
+
+        // 显示问题
+        function showQuestion(index) {
+            const question = questions[index];
+            
+            // 更新进度条
+            progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+            
+            // 构建问题HTML
+            let questionHTML = `
+                <div class="question">
+                    <div class="question-number">心灵对话 ${index + 1} / ${questions.length}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options">
+            `;
+            
+            // 添加选项
+            for (let i = 1; i <= 5; i++) {
+                const isSelected = userAnswers[index] === i ? 'selected' : '';
+                questionHTML += `
+                    <div class="option ${isSelected}" data-value="${i}">
+                        <input type="radio" id="q${index}-option${i}" name="question${index}" value="${i}" ${userAnswers[index] === i ? 'checked' : ''}>
+                        <label for="q${index}-option${i}">${i} - ${getOptionText(i)}</label>
+                    </div>
+                `;
+            }
+            
+            questionHTML += `</div></div>`;
+            questionElement.innerHTML = questionHTML;
+            
+            // 添加选项点击事件
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    if (isAutoAdvancing) return;
+                    
+                    const value = parseInt(this.getAttribute('data-value'));
+                    userAnswers[index] = value;
+                    
+                    // 更新选项样式
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // 更新单选按钮状态
+                    document.querySelector(`input[name="question${index}"][value="${value}"]`).checked = true;
+                    
+                    // 自动跳转到下一题
+                    if (currentQuestionIndex < questions.length - 1) {
+                        isAutoAdvancing = true;
+                        setTimeout(() => {
+                            currentQuestionIndex++;
+                            showQuestion(currentQuestionIndex);
+                            isAutoAdvancing = false;
+                        }, 500);
+                    } else {
+                        updateNavigationButtons();
+                    }
+                });
+            });
+            
+            updateNavigationButtons();
+        }
+
+        // 获取选项文本
+        function getOptionText(value) {
+            switch(value) {
+                case 1: return "完全不符合我";
+                case 2: return "不太符合我";
+                case 3: return "有些符合我";
+                case 4: return "比较符合我";
+                case 5: return "完全符合我";
+                default: return "";
+            }
+        }
+
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            prevBtn.style.display = currentQuestionIndex > 0 ? 'inline-block' : 'none';
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = userAnswers[currentQuestionIndex] !== null ? 'inline-block' : 'none';
+            } else {
+                nextBtn.style.display = userAnswers[currentQuestionIndex] !== null ? 'inline-block' : 'none';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // 上一题
+        prevBtn.addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        // 下一题
+        nextBtn.addEventListener('click', function() {
+            if (currentQuestionIndex < questions.length - 1 && userAnswers[currentQuestionIndex] !== null) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        // 提交答案
+        submitBtn.addEventListener('click', function() {
+            if (userAnswers.every(answer => answer !== null)) {
+                calculateResults();
+                questionContainer.style.display = 'none';
+                resultContainer.style.display = 'block';
+            }
+        });
+
+        // 重新测试
+        restartBtn.addEventListener('click', function() {
+            userAnswers = new Array(questions.length).fill(null);
+            currentQuestionIndex = 0;
+            resultContainer.style.display = 'none';
+            introSection.style.display = 'block';
+        });
+
+        // 打印结果
+        printBtn.addEventListener('click', function() {
+            window.print();
+        });
+
+        // 计算结果
+        function calculateResults() {
+            const dimensionScores = {};
+            
+            for (const dimension in dimensions) {
+                dimensionScores[dimension] = 0;
+            }
+            
+            questions.forEach((question, index) => {
+                dimensionScores[question.dimension] += userAnswers[index];
+            });
+            
+            const responsePatterns = intelligentAnalyzer.analyzeResponsePatterns(userAnswers);
+            const keyResponses = intelligentAnalyzer.identifyKeyResponses(userAnswers);
+            
+            generateOverallAssessment(dimensionScores, userAnswers, responsePatterns, keyResponses);
+            generateDimensionResults(dimensionScores);
+            generateGuidance(dimensionScores, userAnswers, responsePatterns);
+        }
+
+        // 生成总体评估
+        function generateOverallAssessment(scores, userAnswers, patterns, keyResponses) {
+            const assessment = intelligentAnalyzer.generatePersonalizedAssessment(
+                scores, userAnswers, patterns, keyResponses
+            );
+            
+            overallTextElement.innerHTML = `<p>${assessment}</p>`;
+        }
+
+        // 生成各维度分析
+        function generateDimensionResults(scores) {
+            let dimensionHTML = "";
+            
+            for (const dimension in dimensions) {
+                const score = scores[dimension];
+                const maxScore = questions.filter(q => q.dimension === dimension).length * 5;
+                
+                let level;
+                for (const levelName in resultDatabase[dimension]) {
+                    const range = resultDatabase[dimension][levelName].range;
+                    if (score >= range[0] && score <= range[1]) {
+                        level = levelName;
+                        break;
+                    }
+                }
+                
+                const result = resultDatabase[dimension][level];
+                
+                dimensionHTML += `
+                    <div class="dimension">
+                        <div class="dimension-title">
+                            <span>${dimensions[dimension].name}</span>
+                            <span class="dimension-score">${score} / ${maxScore} · ${result.title}</span>
+                        </div>
+                        <div class="dimension-description">${dimensions[dimension].description}</div>
+                        <div class="dimension-analysis">
+                            <p>${result.analysis}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            dimensionResultsElement.innerHTML = dimensionHTML;
+        }
+
+        // 生成建议
+        function generateGuidance(scores, userAnswers, patterns) {
+            const suggestions = intelligentGuidance.generatePersonalizedSuggestions(
+                scores, userAnswers, patterns
+            );
+            
+            let guidanceHTML = "";
+            suggestions.forEach(suggestion => {
+                guidanceHTML += `<p>${suggestion}</p>`;
+            });
+            
+            guidanceTextElement.innerHTML = guidanceHTML;
+        }
+    </script>
+</body>
+</html>
